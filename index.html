@@ -429,11 +429,17 @@ canvas#gc{display:block;flex:1;min-height:0;width:100%;}
     </div>
     <canvas id="gc"></canvas>
     <div class="gctrl">
-      <div class="dpad">
-        <div class="dpbtn" ontouchstart="K.l=true" ontouchend="K.l=false" onmousedown="K.l=true" onmouseup="K.l=false">◀</div>
-        <div class="dpbtn" ontouchstart="K.r=true" ontouchend="K.r=false" onmousedown="K.r=true" onmouseup="K.r=false">▶</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <span style="font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;color:rgba(255,240,255,.35);letter-spacing:.08em;text-transform:uppercase;">Moverse</span>
+        <div class="dpad">
+          <div class="dpbtn" ontouchstart="K.l=true" ontouchend="K.l=false" onmousedown="K.l=true" onmouseup="K.l=false">◀</div>
+          <div class="dpbtn" ontouchstart="K.r=true" ontouchend="K.r=false" onmousedown="K.r=true" onmouseup="K.r=false">▶</div>
+        </div>
       </div>
-      <div class="btn-a" ontouchstart="K.f=true;sndShoot()" ontouchend="K.f=false" onmousedown="K.f=true;sndShoot()" onmouseup="K.f=false">🦄</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <span style="font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;color:rgba(255,240,255,.35);letter-spacing:.08em;text-transform:uppercase;">Disparar</span>
+        <div class="btn-a" ontouchstart="K.f=true;sndShoot()" ontouchend="K.f=false" onmousedown="K.f=true;sndShoot()" onmouseup="K.f=false">🦄</div>
+      </div>
     </div>
     <div class="game-foot">
       <button class="btn-home" onclick="snd('s');go('sc-home',0)">🏠 Inicio</button>
