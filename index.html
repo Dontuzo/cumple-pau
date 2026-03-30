@@ -168,24 +168,24 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);}
 .sc-emoji{font-size:2rem;}
 .sc-title{font-family:'Exo 2',sans-serif;font-weight:800;font-size:18px;color:var(--viL);letter-spacing:.04em;text-transform:uppercase;}
 .count-date{
-  font-family:'Fredoka One',cursive;font-size:clamp(1.3rem,5.5vw,1.9rem);
-  color:var(--gL);text-align:center;letter-spacing:.02em;margin-bottom:20px;
+  font-family:'Fredoka One',cursive;font-size:clamp(1.1rem,4.5vw,1.6rem);
+  color:var(--gL);text-align:center;letter-spacing:.02em;margin-bottom:10px;
   filter:drop-shadow(0 2px 8px rgba(245,184,0,.4));
 }
-.count-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:320px;}
+.count-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:320px;}
 .ctile{
   background:rgba(255,240,255,.07);border:1.5px solid rgba(255,240,255,.13);
-  border-radius:18px;padding:16px 8px 14px;
-  display:flex;flex-direction:column;align-items:center;gap:4px;
+  border-radius:14px;padding:10px 8px 8px;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
   position:relative;overflow:hidden;
 }
-.ctile::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:18px 18px 0 0;}
+.ctile::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0;}
 .ct-d::before{background:linear-gradient(90deg,#C2006A,#F0409A);}
 .ct-h::before{background:linear-gradient(90deg,#5B0099,#9B1FCC);}
 .ct-m::before{background:linear-gradient(90deg,#006E9E,#00B4D8);}
 .ct-s::before{background:linear-gradient(90deg,#A06000,#F5B800);}
-.cnum{font-family:'Exo 2',sans-serif;font-size:clamp(2.2rem,10vw,3.5rem);font-weight:900;color:var(--txt);line-height:1;letter-spacing:-.02em;}
-.clbl{font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;color:var(--t40);letter-spacing:.1em;text-transform:uppercase;}
+.cnum{font-family:'Exo 2',sans-serif;font-size:clamp(1.6rem,8vw,2.6rem);font-weight:900;color:var(--txt);line-height:1;letter-spacing:-.02em;}
+.clbl{font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;color:var(--t40);letter-spacing:.1em;text-transform:uppercase;}
 @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.07);}}
 .pulse{animation:pulse .5s ease;}
 
@@ -373,6 +373,19 @@ canvas#gc{display:block;flex:1;min-height:0;width:100%;}
       <div class="ctile ct-m"><div class="cnum" id="cd-m">--</div><div class="clbl">Minutos</div></div>
       <div class="ctile ct-s"><div class="cnum" id="cd-s">--</div><div class="clbl">Segundos</div></div>
     </div>
+    <button onclick="addToCalendar()" style="
+      margin-top:12px;
+      display:flex;align-items:center;gap:10px;
+      background:linear-gradient(135deg,#5B0099,#9B1FCC);
+      border:none;border-radius:50px;color:#fff;
+      font-family:'Exo 2',sans-serif;font-weight:700;font-size:14px;letter-spacing:.04em;
+      padding:12px 28px;cursor:pointer;
+      box-shadow:0 4px 0 #3A0066,0 6px 18px rgba(90,0,150,.4);
+      transition:transform .15s,filter .15s;
+      -webkit-appearance:none;
+    ">
+      📅 Agregar al calendario
+    </button>
   </div>
   <div class="sc-foot">
     <button class="btn-home" onclick="snd('s');go('sc-home',0)">🏠 Inicio</button>
@@ -765,6 +778,34 @@ document.addEventListener('keyup',e=>{
   if(e.key==='ArrowRight')K.r=false;
   if(e.key===' '||e.key==='ArrowUp')K.f=false;
 });
+/* ── AGREGAR AL CALENDARIO ── */
+function addToCalendar(){
+  const ics=[
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Fiesta Paulina//ES',
+    'BEGIN:VEVENT',
+    'DTSTART:20260425T140000',
+    'DTEND:20260425T180000',
+    'SUMMARY:Fiesta de Cumpleanos - Paulina 6 anos',
+    'DESCRIPTION:Estas invitado a celebrar los 6 anos de Paulina!',
+    'LOCATION:Salon Villa Alejandra\\, Alberto Braniff 403\\, Col. Carlos Rovirosa\\, Pachuca de Soto\\, Hgo.',
+    'BEGIN:VALARM',
+    'TRIGGER:-PT60M',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:Recordatorio: Fiesta de Paulina en 1 hora',
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+  const blob=new Blob([ics],{type:'text/calendar;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='fiesta-paulina.ics';
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 </script>
 </body>
 </html>
